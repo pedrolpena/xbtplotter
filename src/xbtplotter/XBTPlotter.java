@@ -31,6 +31,7 @@ import javax.swing.JToggleButton;
 
 import binfileutils.XBTProfile;
 import binfileutils.BinDecoder;
+import javax.swing.JFileChooser;
 
 @SuppressWarnings("deprecation")
 
@@ -345,10 +346,10 @@ public class XBTPlotter extends Frame
             beginEndPanel.add(ped);
             
             Panel CurrentDateBtnPanel = new Panel();
-            JToggleButton CurrentDt = new JToggleButton("Current");
-            CurrentDt.setBackground(Color.lightGray);
-            CurrentDt.addActionListener(MyXBTplot);
-            CurrentDateBtnPanel.add(CurrentDt);
+            JToggleButton currentDt = new JToggleButton("Current");
+            currentDt.setBackground(Color.lightGray);
+            currentDt.addActionListener(MyXBTplot);
+            CurrentDateBtnPanel.add(currentDt);
             beginEndPanel.add(CurrentDateBtnPanel);
 
             Panel buttonsShipListPanel = new Panel();
@@ -364,14 +365,28 @@ public class XBTPlotter extends Frame
             buttonsShipListPanel.add(ShipPanel);
 
             Panel ButtonPanel = new Panel();
-            Button Query = new Button("Query");
-            Query.setBackground(Color.lightGray);
-            Query.addActionListener(MyXBTplot);
-            ButtonPanel.add(Query);
+            Button query = new Button("Query");
+            query.setBackground(Color.lightGray);
+            query.addActionListener(MyXBTplot);
+            ButtonPanel.add(query);
             buttonsShipListPanel.add(ButtonPanel);
+
+            Panel uploadFilePanel = new Panel();
+            uploadFilePanel.setLayout(new GridLayout(1, 4));
+            
+            Panel FileSelectionButtonPanel = new Panel();
+            Button fileSelector = new Button("Select Files");
+            fileSelector.setBackground(Color.lightGray);
+            fileSelector.addActionListener(MyXBTplot);
+            FileSelectionButtonPanel.add(fileSelector);
+            uploadFilePanel.add(FileSelectionButtonPanel);
             
             pic.add(beginEndPanel, BorderLayout.WEST);
             pic.add(buttonsShipListPanel, BorderLayout.EAST);
+            pic.add(uploadFilePanel, BorderLayout.SOUTH);
+
+            
+            //JFileChooser chooser = new JFileChooser();
 
             MyXBTplot.add(BorderLayout.CENTER, cc);
             MyXBTplot.add(BorderLayout.SOUTH, pic);
@@ -473,6 +488,65 @@ public class XBTPlotter extends Frame
                     Emon.select(systemDate.get(Calendar.MONTH));
                     refreshCurrentDate = true;
                 }
+            } else if (pp.equals("Select Files")) {
+                Traces.clear();
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setMultiSelectionEnabled(true);
+                int returnValue = fileChooser.showOpenDialog(null);
+
+                File[] selectedFile = fileChooser.getSelectedFiles();
+                super.setVisible(false);
+                for (File binFileName : selectedFile) {
+                    try {
+                        BinDecoder binDecoder =
+                                new BinDecoder(binFileName.getAbsolutePath());
+                        TransmittedProfile Prof =
+                                new TransmittedProfile(binDecoder.getXBTProfile());
+                        Prof.setFileName(binFileName.getName());
+                        Prof.setObservationDateTime();
+                        Prof.setRecoveryDateTime(
+                                Prof.profileDateTimeFormat(0, 0, 0, 0, 0));
+                        Prof.setTemperaturePoints(new Vector<DTPair>(10, 10));
+
+                        if (!Prof.temperatureObservations()) {
+                            continue;
+                        }
+
+                        Traces.add(Prof);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                        ex.printStackTrace();
+                    }
+
+                    if (Traces.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Profiles Not Found");
+                    } else {
+                        Collections.sort(Traces);
+                        nobs = Traces.size();
+                        MaxDepth = Collections.max(Traces,
+                                TransmittedProfile.Comparators.MAXDEPTH)
+                                .getMaxDepth();
+                        MaxTemp = Collections.max(Traces,
+                                TransmittedProfile.Comparators.MAXTEMPERATURE)
+                                .getMaxTemperature();
+                        MinTemp = Collections.min(Traces,
+                                TransmittedProfile.Comparators.MINTEMPERATURE)
+                                .getMinTemperature();
+                        Selected = Traces.size() - 1;
+                        Iterator<TransmittedProfile> tracesIterator = Traces.iterator();
+                        TransmittedProfile previousPR = null;
+                        while (tracesIterator.hasNext()) {
+                            TransmittedProfile currentPR = tracesIterator.next();
+                            if (!(previousPR == null)) {
+                                previousPR.distanceToNextPOS(currentPR);
+                                currentPR.setPreviousPOS(previousPR.getNextPOS());
+                            }
+                            previousPR = currentPR;
+                        }
+                    }
+                }
+                super.setVisible(true);
+                cc.repaint();
             }
         }
 
@@ -1020,7 +1094,7 @@ public class XBTPlotter extends Frame
         public void keyPressed(KeyEvent event) {
             String key = event.getKeyText(event.getKeyCode());
             if (Traces.size() > 0) {
-                if (key.indexOf("Right") >= 0)//event.VK_RIGHT)
+                if (key.indexOf("Right") >= 0)
                 {
                     Selected += 1;
                     if (Selected > Traces.size() - 1) {
@@ -1167,7 +1241,7 @@ public class XBTPlotter extends Frame
             }
 
             g.setColor(Color.red);
-
+            // Bottom panel - draw all profiles
             for (int i = 0; i < NoTraces; i++) {
                 TransmittedProfile ThisOb = Traces.get(i);
 
@@ -1253,7 +1327,7 @@ public class XBTPlotter extends Frame
                     DefRecTime = true;
                 }
 
-                if (Math.abs((ob - rec)) / 3600000 >= 11)// || ((rec - ob)/86400000 >= 1))
+                if (Math.abs((ob - rec)) / 3600000 >= 11)
                 {
                     Red = true;
                 }
@@ -1450,7 +1524,7 @@ public class XBTPlotter extends Frame
 
                 }
                 
-                // Bottom panel displaying all selectable profiles
+                // Bottom panel draw selected profile
                 if (Traces.size() > 0) {
                     ThisOb = Traces.get(Selected);
                     int la = 900 - (int) (ThisOb.getProfile().getLatitude() * 10);
@@ -1509,4 +1583,3 @@ public class XBTPlotter extends Frame
         }
     }
 }
-
