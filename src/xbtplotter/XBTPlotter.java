@@ -1485,7 +1485,7 @@ public class XBTPlotter extends Frame
                 g.drawLine(xbeginning, posY, this.getSize().width, posY);
                 g.setColor(Color.white);
 
-                for (int i = lowestTemp - 1; i < (int) MaxTemp + 1; i++) {
+                for (int i = lowestTemp - 1; i < (int) highestTemp + 1; i++) {
                     if (i % 5 == 0) {
                         dec.applyPattern("#0");
                         out = dec.format(i);
