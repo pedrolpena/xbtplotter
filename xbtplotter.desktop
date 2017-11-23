@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=AOML XBT Plotter
+Comment=Plots XBT profiles
+Categories=GNOME;Utility
+Exec=${SNAP}/bin/xbtplotter.XBTPlotter
+Icon=${SNAP}/usr/share/icons/hicolor/48x48/apps/openjdk-8.png
+Terminal=False
+Type=Application
+Version=1.0
