@@ -1,0 +1,29 @@
+name: xbtplotter
+version: '1.0'
+summary: Plot XBT profiles.
+description: This program will plot XBT profiles located on AOML's
+             public FTP server for on going and previous High Density
+             transects. Profiles can be plotted by call sign and date.
+
+grade: stable
+confinement: strict
+
+apps:
+  XBTPlotter:
+    plugs:
+      - x11
+      - network
+      - desktop
+      - unity7
+    command: java -jar $SNAP/usr/bin/XBTPlotter.jar
+
+parts:
+  aoml-xbtplotter:
+    plugin: ant
+    source: .
+    stage-packages: [openjdk-8-jre]
+    install: |
+      mkdir -p  ../../../prime/usr/bin
+      cp -r dist/* ../../../prime/usr/bin
+     
+ 
