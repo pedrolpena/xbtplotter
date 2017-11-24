@@ -3,6 +3,13 @@
 **COMPILING AND RUNNING THE FTP PROGRAM**
 -----------------------------------------
 
+If you have apache Ant ("Another Neat Tool") installed then it's very easy.
+Just open a command prompt/terminal ,navigate to the xbtplotter folder 
+and type ant.
+
+After several seconds the program should be available in the dist folder.
+If you don't have ant or you don't wish to install it, then keep reading.
+
 To compile, make sure that a java sdk version of at least 1.7 is installed
 and that the jar archive tool is installed. Make sure that the location
 of the java sdk is in the path. Most of the time you should be able to just 
