@@ -15,6 +15,7 @@ apps:
       - network
       - desktop
       - unity7
+      - home
     command: java -jar $SNAP/usr/bin/XBTPlotter.jar
 
 parts:
