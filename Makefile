@@ -51,9 +51,9 @@ dist:
 
 desktop:
 	echo "[Desktop Entry]" > $(PACKAGE).desktop
-	echo "Comment=IES Telemetry Application" >> $(PACKAGE).desktop
+	echo "Comment=AOML XBT Plotter" >> $(PACKAGE).desktop
 	echo "Terminal=false" >> $(PACKAGE).desktop
-	echo "Name=IES Telemetry Application" >> $(PACKAGE).desktop
+	echo "Name=AOML XBT Plotter" >> $(PACKAGE).desktop
 	echo "Exec=$(STARTDIR)/$(PACKAGE)" >> $(PACKAGE).desktop
 	echo "Type=Application" >> $(PACKAGE).desktop
 	echo "Icon=$(INSTALLDIR)/$(PACKAGE)/icon.png" >> $(PACKAGE).desktop
