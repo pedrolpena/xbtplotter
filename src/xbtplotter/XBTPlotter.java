@@ -38,7 +38,7 @@ import javax.swing.JFileChooser;
 public class XBTPlotter extends Frame
     implements ItemListener, ActionListener {
         private static SoopDataFTP ftpConn;
-        private static String downloadedDir = System.getProperty("user.home") +"/.bindownloads";
+        private static String downloadedDir = System.getProperty("user.home") +"/bindownloads";
         private static ColorCanvas cc;
         private Thread refreshQuery = null;
         private String[] colorName;

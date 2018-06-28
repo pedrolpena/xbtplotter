@@ -80,7 +80,7 @@ uninstall:
 	$(RM) $(INSTALLDIR)/$(PACKAGE)/$(FILENAME)
 	$(RM) $(INSTALLDIR)/$(PACKAGE)/icon.png
 	rmdir $(INSTALLDIR)/$(PACKAGE)
-	rm -rf $(HOME)/.bindownloads
+	rm -rf $(HOME)/bindownloads
 clean:
 	$(RM) -r ./$(PACKAGE)
 	$(RM) -r ./dist
