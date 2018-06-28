@@ -38,7 +38,7 @@ import javax.swing.JFileChooser;
 public class XBTPlotter extends Frame
     implements ItemListener, ActionListener {
         private static SoopDataFTP ftpConn;
-        private static String downloadedDir = System.getProperty("user.dir") +"/BinDownloads";
+        private static String downloadedDir = System.getProperty("user.home") +"/.bindownloads";
         private static ColorCanvas cc;
         private Thread refreshQuery = null;
         private String[] colorName;
@@ -1059,7 +1059,7 @@ public class XBTPlotter extends Frame
         private ArrayList<String> checkRemainingBinFiles(ArrayList<String> binList) {
             ArrayList<String> allFiles = new ArrayList<>(binList);
             String workingDir = System.getProperty("user.dir");
-            String downloadedDir = workingDir+"/BinDownloads/";
+            //String downloadedDir = workingDir+"/BinDownloads/";
             File f = new File(downloadedDir);
             ArrayList<String> inhouseFileNames = new ArrayList<>(Arrays.asList(f.list()));
             allFiles.removeAll(inhouseFileNames);
