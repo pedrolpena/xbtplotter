@@ -1,0 +1,3 @@
+Class-Path: commons-net-3.3.jar AmverseasBinFileUtils.jar
+Main-Class: xbtplotter.XBTPlotter
+
