@@ -13,6 +13,14 @@ DOC bureau, shall not be used in any manner to imply endorsement of any commerci
 DOC or the United States Government.
 
 
+
+-----------------------------------------
+*****Download Latest Windows Release*****
+-----------------------------------------
+
+[Download Latest Windows Release](https://github.com/pedrolpena/xbtplotter/releases/latest)
+
+
 -----------------------------------------
 **COMPILING AND RUNNING THE FTP PROGRAM**
 -----------------------------------------
