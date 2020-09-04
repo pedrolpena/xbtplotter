@@ -20,6 +20,10 @@ DOC or the United States Government.
 
 [Download Latest Windows Release](https://github.com/pedrolpena/xbtplotter/releases/latest)
 
+After downloading the zip file you need to extract the contents into a directory of your choice. Afterwards just double click on "xbtplotter.bat" and the program should run.
+
+
+
 
 -----------------------------------------
 **COMPILING AND RUNNING THE FTP PROGRAM**
