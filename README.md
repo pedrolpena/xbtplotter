@@ -22,12 +22,29 @@ DOC or the United States Government.
 
 After downloading the zip file you need to extract the contents into a directory of your choice. Afterwards just double click on "xbtplotter.bat" and the program should run.
 
+-----------------------
+***Install on Ubuntu***
+-----------------------
+
+Ubuntu 16.04
+- install snap
+- install xbtplotter
+```bash
+sudo apt-get update
+sudo apt-get install snapd
+sudo snap install xbtplotter
+```
+
+Ubuntu 18.04 and above
+- install xbtplotter
+```bash
+sudo snap install xbtplotter
+```
 
 
-
------------------------------------------
-**COMPILING AND RUNNING THE FTP PROGRAM**
------------------------------------------
+-----------------------------------------------------
+**COMPILING FROM SOURCE AND RUNNING THE FTP PROGRAM**
+-----------------------------------------------------
 
 If you have apache Ant ("Another Neat Tool") installed then it's very easy.
 Just open a command prompt/terminal ,navigate to the xbtplotter folder 
